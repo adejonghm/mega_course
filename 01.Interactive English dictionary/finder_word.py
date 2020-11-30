@@ -1,0 +1,36 @@
+
+import json
+
+from difflib import get_close_matches
+
+with open('dictionary.json') as file:
+    dictionary = json.load(file)
+
+
+def search(word):    
+    word = word.lower()
+    
+    if word in dictionary:
+        return dictionary[word]
+    elif len(get_close_matches(word, dictionary.keys())) > 0:
+        yes_no = input('Did you mean "{}"? Please, enter Yes/No: '.format(get_close_matches(word, dictionary.keys(), )[0]))
+        if yes_no.lower() == 'yes':
+            return dictionary[get_close_matches(word, dictionary.keys(), )[0]]
+        elif yes_no == 'no':
+            return "The word doesn't exist."
+        else:
+            return "It's not possible to execute this option."
+    else:
+        return "The word doesn't exist."
+
+
+# ===============
+word = input("Enter the world: ")
+
+found = search(word)
+
+if type(found) == list:
+    for definition in found:
+        print("Definition: {}".format(definition))
+else:
+    print("Definition: {}".format(found))
