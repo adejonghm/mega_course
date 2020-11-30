@@ -16,10 +16,10 @@ def search(word):
         yes_no = input('Did you mean "{}"? Please, enter Yes/No: '.format(get_close_matches(word, dictionary.keys(), )[0]))
         if yes_no.lower() == 'yes':
             return dictionary[get_close_matches(word, dictionary.keys(), )[0]]
-        elif yes_no == 'no':
+        elif yes_no.lower() == 'no':
             return "The word doesn't exist."
         else:
-            return "It's not possible to execute this option."
+            return "It is not possible to execute this option."
     else:
         return "The word doesn't exist."
 
@@ -32,5 +32,7 @@ found = search(word)
 if type(found) == list:
     for definition in found:
         print("Definition: {}".format(definition))
+elif found.startswith(("The", "It")):
+    print(found)
 else:
     print("Definition: {}".format(found))
