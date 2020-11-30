@@ -12,6 +12,10 @@ def search(word):
     
     if word in dictionary:
         return dictionary[word]
+    elif word.title() in dictionary:
+        return dictionary[word.title()]
+    elif word.upper():
+        return dictionary[word.upper()]
     elif len(get_close_matches(word, dictionary.keys())) > 0:
         yes_no = input('Did you mean "{}"? Please, enter Yes/No: '.format(get_close_matches(word, dictionary.keys(), )[0]))
         if yes_no.lower() == 'yes':
